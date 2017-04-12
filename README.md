@@ -16,6 +16,9 @@ instance role that can be used with EC2 instances that need read-only access
 to CodeCommit, ECR, or S3. This is the type of access needed to deploy
 applications (i.e., not for development)
 
+* app-03-security-groups-stack - This stack provides single-purpose security
+groups so you can use composition to aid clarity.
+
 ## scripts
 
 All scripts are located in the `scripts` directory to make them easy to find.
