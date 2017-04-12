@@ -11,6 +11,11 @@ The stacks are number so you'll know the order to create them.
 whole lot of other stuff. On 2017-04-11, there were 35 resources created by
 the stack.
 
+* app-02-role-readonly-codecommit-ecr-s3-stack - This stack provides an
+instance role that can be used with EC2 instances that need read-only access
+to CodeCommit, ECR, or S3. This is the type of access needed to deploy
+applications (i.e., not for development)
+
 ## scripts
 
 All scripts are located in the `scripts` directory to make them easy to find.
