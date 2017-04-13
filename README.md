@@ -19,6 +19,9 @@ applications (i.e., not for development)
 * app-03-security-groups-stack - This stack provides single-purpose security
 groups so you can use composition to aid clarity.
 
+* app-04-hosted-zone-stack - This stack creates a hosted zone that can
+provide DNS host names for your servers.
+
 ## scripts
 
 All scripts are located in the `scripts` directory to make them easy to find.
