@@ -22,6 +22,11 @@ groups so you can use composition to aid clarity.
 * app-04-hosted-zone-stack - This stack creates a hosted zone that can
 provide DNS host names for your servers.
 
+* app-05-elasticsearch-stack - This stack creates a three node AWS-managed
+Elasticsearch cluster. It allows access by IP from one server. Note that the
+DomainName is fixed and based on the stack name. This tightly locks down the
+security.
+
 ## scripts
 
 All scripts are located in the `scripts` directory to make them easy to find.
