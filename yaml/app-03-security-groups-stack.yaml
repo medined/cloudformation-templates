@@ -5,6 +5,20 @@ Description: Stack to common security groups
 # CIDR blocks could be pulled from the app-vpc-stack.
 
 Resources:
+  rWorldIncomingSslSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: "Allow SSL by Everyone."
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+      Tags:
+        - Key: Name
+          Value: !Join [ ":", [ !Ref "AWS::StackName", sg-world-incoming-ssl ] ]
+      VpcId: !ImportValue app-01-vpc-stack:vpc-id
+
   rIncomingDnsSecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
@@ -100,3 +114,7 @@ Outputs:
       Value: !Ref rIncomingZookeeperSecurityGroup
       Export:
         Name: !Join [ ":", [ !Ref "AWS::StackName", incoming-zookeeper-sg ] ]
+    oWorldIncomingSslSecurityGroup:
+      Value: !Ref rWorldIncomingSslSecurityGroup
+      Export:
+        Name: !Join [ ":", [ !Ref "AWS::StackName", world-incoming-ssh-sg ] ]

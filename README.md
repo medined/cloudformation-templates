@@ -27,6 +27,14 @@ Elasticsearch cluster. It allows access by IP from one server. Note that the
 DomainName is fixed and based on the stack name. This tightly locks down the
 security.
 
+* app-06-ec2-instance-example-stack - This stack shows how to create a
+launch configuration and an auto-scaling group. The EC2 instance is setup
+so that anyone can SSH into it as the `centos` user if they have the PEM key.
+The EC2 instance also has curl, git, unzip, docker and the AWS CLI tools
+installed. Additionally, the git credential helper is configured for the
+`centos` user. By default, a `t2.nano` instance type is used so that costs
+are held as low as possible.
+
 ## scripts
 
 All scripts are located in the `scripts` directory to make them easy to find.
