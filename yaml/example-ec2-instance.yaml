@@ -1,14 +1,11 @@
-AWSTemplateFormatVersion: '2010-09-09'
-Description: Stack to hold the Home Page web application for the EPT.
-
-# This stack starts a single EC2 instance. It's intent is to demonstrate
-# how to use USERDATA.
+AWSTemplateFormatVersion: 2010-09-09
+Description: Example of starting an EC2 intance. Shows USERDATA use.
 
 Parameters:
   pInstanceType:
     Description: "EC2 instance type"
     Type: String
-    Default: t2.nano
+    Default: t2.medium
   pAMI:
     Description: "CentOS AMI to use"
     Type: String
@@ -24,7 +21,7 @@ Resources:
     Properties:
       AssociatePublicIpAddress: true
       EbsOptimized: false
-      IamInstanceProfile: !ImportValue app-02-role-readonly-codecommit-ecr-s3-stack:instance-profile
+      IamInstanceProfile: arn:aws:iam::929717587211:instance-profile/app-aws-admin
       ImageId: !Ref pAMI
       InstanceMonitoring: false
       InstanceType: !Ref pInstanceType
@@ -38,14 +35,15 @@ Resources:
           echo "Waiting for Network"
           until ping -w300 -c1 www.google.com &>/dev/null; do :; done
 
-          yum install -y curl git unzip
+          yum update -y
+          yum install -y curl git unzip yum-utils
 
           # Install Docker
-          yum install -y yum-utils
           yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
           yum makecache fast
           yum install -y docker-ce
           systemctl start docker
+          systemctl enable docker
           usermod -aG docker centos
           echo "Docker Installed"
 
@@ -70,7 +68,7 @@ Resources:
     Properties:
       HealthCheckType: EC2
       LaunchConfigurationName: !Ref rLaunchConfiguration
-      MaxSize: 4
+      MaxSize: 1
       MinSize: 1
       Tags:
         - Key: Name
@@ -84,3 +82,9 @@ Resources:
         - !ImportValue app-01-vpc-stack:public-subnet-b
     DependsOn:
       - rLaunchConfiguration
+
+
+Outputs:
+  oLogLocation:
+    Description: the location of the userdata script log
+    Value: /var/log/cloud-init-output.log
